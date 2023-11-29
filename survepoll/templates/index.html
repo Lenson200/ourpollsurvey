@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contribution Survey</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+    <script>
+
+function calculateContribution() {
+    var totalMembers = parseInt(document.getElementById("totalMembers").value);
+    var amountContribut = parseInt(document.getElementById("amountContribut").value);
+    var monthsOfCalc = parseInt(document.getElementById("monthsOfCalc").value);
+
+    var totalCash = totalMembers * amountContribut;
+    var amountContributed = totalCash * monthsOfCalc;
+
+    document.getElementById("result").innerHTML = "In " + monthsOfCalc + " months, we could possibly have " + amountContributed + " in our account.";
+
+    var x = prompt("Do you Want to see total shares per member by the months you just put in ? Enter YES or NO:");
+    if (x.toUpperCase() === "YES") {
+        var ttam = parseInt(prompt("Enter an amount that we possibly could have collected aside from the contribution (e.g., fines, profit, etc.):"));
+        var totalShare = amountContributed + ttam;
+        calcSharesPer(totalShare, amountContribut, monthsOfCalc);
+    } else {
+        alert("Thanks for participating in the survey. Send your thoughts to our WhatsApp group or Discord.");
+    }
+}
+
+function calcSharesPer(totalShare, amountContribut, monthsOfCalc) {
+    var totInContribut = amountContribut * monthsOfCalc;
+    var calcSharesPer = (totInContribut * 100) / totalShare;
+    
+    // Check if calcSharesPer is NaN
+    if (isNaN(calcSharesPer)) {
+        alert("Unable to calculate shares. Please check your inputs.");
+    } else {
+        alert("Your shares at the time will be: " + calcSharesPer.toFixed(2) + "%");
+    }
+}
+function openSocialHandles() {
+            // Add your social handles or links here
+            var DiscordLink = 'https://discord.gg/Tts6HdkH';
+            // var facebookLink = 'https://www.facebook.com/yourpage';
+            // var twitterLink = 'https://twitter.com/yourhandle';
+            // var instagramLink = 'https://www.instagram.com/youraccount';
+
+            // Open links in new tabs
+            window.open(DiscordLink, 'https://discord.com/')
+            // window.open(facebookLink, '_blank');
+            // window.open(twitterLink, '_blank');
+            // window.open(instagramLink, '_blank');
+        }
+</script>
+</head>
+<body>
+    <h1>Welcome to the Contribution Survey</h1>
+    <p>See our total amount as chama and let us know what you think. Input any number of members, amount, and months.</p>
+
+    <form onsubmit="event.preventDefault(); calculateContribution();">
+        <label for="totalMembers">Enter total number of members:</label>
+        <input type="number" id="totalMembers" required><br>
+
+        <label for="amountContribut">Enter your proposed contribution amount:</label>
+        <input type="number" id="amountContribut" required><br>
+
+        <label for="monthsOfCalc">Enter amount of months to see total contribution:</label>
+        <input type="number" id="monthsOfCalc" required><br>
+
+        <button type="submit">Calculate</button>
+    </form>
+
+    <p id="result"></p>
+    <h3>Our Social Spaces</h3>
+    <button onclick="openSocialHandles()">Social Handles</button>
+</body>
+</html>
